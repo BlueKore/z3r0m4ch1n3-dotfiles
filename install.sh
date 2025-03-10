@@ -1,6 +1,6 @@
 #!/bin/bash
 
-system_packages=("man-db" "zip")
+system_packages=("man-db" "zip" "wofi" "waybar" "ttf-font-awesome")
 development_packages=("zsh" "git" "github-cli")
 productivity_packages=(
 	"chromium" 
