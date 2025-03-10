@@ -1,7 +1,8 @@
 #!/bin/bash
 
+driver_packages=("bluez" "bluez-utils")
 system_packages=("man-db" "zip" "wofi" "waybar" "ttf-font-awesome")
-development_packages=("zsh" "git" "github-cli")
+development_packages=("zsh" "git" "github-cli" "code")
 productivity_packages=(
 	"chromium" 
 	"libreoffice-still" 
@@ -13,6 +14,8 @@ echo "Updating package database..."
 pacman -Sy --noconfirm
 
 echo "Step 2 - Install requirement packages:"
+echo "Installing driver packages..."
+pacman -S --noconfirm --needed "${driver_packages[@]}"
 echo "Installing system packages..."
 pacman -S --noconfirm --needed "${system_packages[@]}"
 echo "Installing development packages..."
