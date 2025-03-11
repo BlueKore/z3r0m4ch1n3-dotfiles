@@ -23,5 +23,22 @@ pacman -S --noconfirm --needed "${development_packages[@]}"
 echo "Installing productivity packages..."
 pacman -S --noconfirm --needed "${productivity_packages[@]}"
 
-echo "Configuring git..."
-# git config --global init.defaultBranch "main"
+echo "Step 3 - Configuring required services:"
+echo "Configuring bluetooth..."
+
+if lsmod | grep btusb; then
+    if [[ "$(systemctl is-enabled bluetooth.service 2>/dev/null)" != "enabled" ]]; 
+    then
+	    echo "Starting Bluetooth service..."
+        systemctl start bluetooth.service
+	    echo "Enabling Bluetooth service..."
+	    systemctl enable bluetooth.service
+    else
+        echo "Bluetooth service already started. Skipping..."
+    fi
+else
+    echo "Bluetooth module not found. Skipping..."
+fi
+
+echo "Step 4 - Configuring git:"
+git config --global init.defaultBranch "main"
