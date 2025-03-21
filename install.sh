@@ -2,7 +2,7 @@
 
 # bluez and bluez-utils for Bluetooth, pipewire-pulse for wireless BT audio
 driver_packages=("bluez" "bluez-utils" "pipewire-pulse")
-system_packages=("man-db" "zip" "wofi" "waybar" "ttf-font-awesome")
+system_packages=("man-db" "zip" "wofi" "waybar" "ttf-font-awesome" "nftables")
 development_packages=("zsh" "git" "github-cli" "code" "go")
 productivity_packages=(
 	"chromium" 
