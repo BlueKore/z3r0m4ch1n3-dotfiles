@@ -27,7 +27,7 @@ display_greeting
 set -e
 
 # bluez and bluez-utils for Bluetooth, pipewire-pulse for wireless BT audio
-driver_packages=("bluez" "bluez-utils" "pipewire-pulse")
+driver_packages=("bluez" "bluez-utils")
 system_packages=("man-db" "zip" "wofi" "waybar" "ttf-font-awesome" "nftables")
 development_packages=("zsh" "git" "github-cli" "code" "go")
 productivity_packages=(
@@ -71,7 +71,8 @@ echo "Configuring firewall..."
 echo "Copying firewall configuration"
 cp firewall/nftables.conf /etc/nftables.conf
 
-if systemctl is-enabled --quiet nftables.service; then
+if [[ "$(systemctl is-enabled nftables.service 2>/dev/null)" != "enabled" ]];
+then
     echo "Starting Firewall service..."
     systemctl start nftables.service
     echo "Enabling Firewall service (for auto-starting when booting)..."
