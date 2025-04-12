@@ -38,7 +38,7 @@ productivity_packages=(
 
 echo "Step 1 - Package database update:"
 echo "Updating package database..."
-pacman -Sy --noconfirm
+pacman -Syu --noconfirm
 
 echo "Step 2 - Install requirement packages:"
 echo "Installing driver packages..."
