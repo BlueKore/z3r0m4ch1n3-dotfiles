@@ -25,14 +25,14 @@ echo "Installing productivity packages..."
 pacman -S --noconfirm --needed "${productivity_packages[@]}"
 
 echo "Step 3 - Configuring required services:"
-echo "Configuring bluetooth..."
 
+echo "Configuring bluetooth..."
 if lsmod | grep btusb; then
     if [[ "$(systemctl is-enabled bluetooth.service 2>/dev/null)" != "enabled" ]]; 
     then
 	    echo "Starting Bluetooth service..."
         systemctl start bluetooth.service
-	    echo "Enabling Bluetooth service..."
+	    echo "Enabling Bluetooth service (for auto-starting when booting)..."
 	    systemctl enable bluetooth.service
     else
         echo "Bluetooth service already started. Skipping..."
@@ -40,6 +40,20 @@ if lsmod | grep btusb; then
 else
     echo "Bluetooth module not found. Skipping..."
 fi
+
+echo "Configuring firewall..."
+echo "Copying firewall configuration"
+cp firewall/nftables.conf /etc/nftables.conf
+
+if systemctl is-enabled --quiet nftables.service; then
+    echo "Starting Firewall service..."
+    systemctl start nftables.service
+    echo "Enabling Firewall service (for auto-starting when booting)..."
+    systemctl enable nftables.service
+else
+    echo "Firewall already configured. Skipping..."
+fi
+
 
 echo "Step 4 - Configuring git:"
 git config --global init.defaultBranch "main"
